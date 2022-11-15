@@ -2,9 +2,7 @@ import 'package:amplify_grocery_list/add_grocery_item/add_grocery_item_view.dart
 import 'package:amplify_grocery_list/finalize_grocery/finalize_grocery_view.dart';
 import 'package:amplify_grocery_list/grocery_list/previous_groceries_page.dart';
 import 'package:amplify_grocery_list/models/temporary_grocery_item.dart';
-import 'package:amplify_grocery_list/models/temporary_previous_grocery.dart';
 import 'package:amplify_grocery_list/utils/helpers.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class CurrentGroceryListPage extends StatefulWidget {

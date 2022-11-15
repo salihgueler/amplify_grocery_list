@@ -1,6 +1,7 @@
 import 'package:amplify_grocery_list/models/temporary_grocery_item.dart';
 import 'package:collection/collection.dart';
 
+// TODO(7): Add GraphQL API
 class TemporaryPreviousGrocery {
   const TemporaryPreviousGrocery(
     this.totalAmount,

@@ -7,6 +7,8 @@ void main() {
   runApp(const AmplifyGroceryListApp());
 }
 
+// TODO(5): Add GraphQL API
+
 class AmplifyGroceryListApp extends StatelessWidget {
   const AmplifyGroceryListApp({Key? key}) : super(key: key);
 

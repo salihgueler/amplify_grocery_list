@@ -1,3 +1,4 @@
+// TODO(6): Add GraphQL API
 class TemporaryGroceryItem {
   const TemporaryGroceryItem(
     this.count,

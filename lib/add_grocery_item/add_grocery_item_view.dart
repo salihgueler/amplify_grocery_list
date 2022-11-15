@@ -78,6 +78,7 @@ class _AddGroceryItemViewState extends State<AddGroceryItemView> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {
+                    // TODO(9): Add GraphQL API
                     widget.onItemAdded(
                       TemporaryGroceryItem(
                         int.parse(countController.text),

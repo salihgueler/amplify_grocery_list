@@ -16,6 +16,7 @@ dependencies:
   collection: ^1.16.0
   # TODO(1): Initialize Amplify and Add Authentication
   # TODO(5): Add GraphQL API
+  # TODO(10): Add Storage
 dev_dependencies:
   flutter_test:
     sdk: flutter

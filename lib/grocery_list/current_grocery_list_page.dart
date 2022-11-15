@@ -37,6 +37,7 @@ class _CurrentGroceryListPageState extends State<CurrentGroceryListPage> {
             },
             icon: const Icon(Icons.history),
           ),
+          // TODO(4): Initialize Amplify and Add Authentication
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(

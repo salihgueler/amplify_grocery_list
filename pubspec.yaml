@@ -15,6 +15,7 @@ dependencies:
   # Flutter relies on the version 1.16.0 for collection
   collection: ^1.16.0
   # TODO(1): Initialize Amplify and Add Authentication
+  # TODO(5): Add GraphQL API
 dev_dependencies:
   flutter_test:
     sdk: flutter

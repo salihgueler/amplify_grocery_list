@@ -1,0 +1,25 @@
+name: amplify_grocery_list
+description: Grocery List to show AWS Amplify
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.4 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  file_picker: ^5.2.2
+  # Flutter relies on the version 1.16.0 for collection
+  collection: ^1.16.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.1
+
+flutter:
+  uses-material-design: true

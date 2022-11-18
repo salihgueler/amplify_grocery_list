@@ -15,31 +15,31 @@ class PreviousGroceriesPage extends StatelessWidget {
       ),
       body: previousGroceries.isEmpty
           ? const Center(
-        child: Text('No previous groceries in the list yet'),
-      )
+              child: Text('No previous groceries in the list yet'),
+            )
           : ListView.builder(
-        itemCount: previousGroceries.length,
-        itemBuilder: (context, index) {
-          final item = previousGroceries[index];
-          return ListTile(
-            title: Text(item.title),
-            subtitle: Text(
-              'You paid ${item.totalAmount} on ${item.finalizationDate}',
-            ),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return PreviousGroceryDetailsPage(
-                      item: item,
+              itemCount: previousGroceries.length,
+              itemBuilder: (context, index) {
+                final item = previousGroceries[index];
+                return ListTile(
+                  title: Text(item.title!),
+                  subtitle: Text(
+                    'You paid ${item.totalAmount} on ${item.finalizationDate}',
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return PreviousGroceryDetailsPage(
+                            item: item,
+                          );
+                        },
+                      ),
                     );
                   },
-                ),
-              );
-            },
-          );
-        },
-      ),
+                );
+              },
+            ),
     );
   }
 }

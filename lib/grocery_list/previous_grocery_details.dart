@@ -13,29 +13,31 @@ class PreviousGroceryDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(item.title),
+        title: Text(item.title!),
       ),
-      body: Column(
+      body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.all(8),
-            child: Text('Amount spent: ${item.totalAmount} on ${item.finalizationDate}'),
+            child: Text(
+                'Amount spent: ${item.totalAmount} on ${item.finalizationDate}'),
           ),
           Padding(
             padding: const EdgeInsets.all(8),
             child: Text('File saved at: ${item.filePath}'),
           ),
+          // TODO(12): Add ui to show the uploaded image
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: item.groceryItems.length,
-              itemBuilder: (context, index) {
-                final groceryItem = item.groceryItems[index];
-                return ListTile(
-                  title: Text(groceryItem.name),
-                  subtitle: Text('You bought ${groceryItem.count} of these'),
-                );
-              },
+            child: Column(
+              children: item.groceryItems!
+                  .map(
+                    (groceryItem) => ListTile(
+                      title: Text(groceryItem.name),
+                      subtitle:
+                          Text('You bought ${groceryItem.count} of these'),
+                    ),
+                  )
+                  .toList(growable: false),
             ),
           ),
         ],

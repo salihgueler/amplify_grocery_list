@@ -11,11 +11,11 @@ class TemporaryPreviousGrocery {
     this.groceryItems,
   );
 
-  final double totalAmount;
-  final String filePath;
-  final String finalizationDate;
-  final String title;
-  final List<TemporaryGroceryItem> groceryItems;
+  final double? totalAmount;
+  final String? filePath;
+  final String? finalizationDate;
+  final String? title;
+  final List<TemporaryGroceryItem>? groceryItems;
 
   @override
   int get hashCode => Object.hash(
@@ -29,7 +29,8 @@ class TemporaryPreviousGrocery {
   @override
   bool operator ==(Object other) {
     return other is TemporaryPreviousGrocery &&
-        const DeepCollectionEquality().equals(other.groceryItems, groceryItems) &&
+        const DeepCollectionEquality()
+            .equals(other.groceryItems, groceryItems) &&
         other.filePath == filePath &&
         other.finalizationDate == finalizationDate &&
         other.title == title &&

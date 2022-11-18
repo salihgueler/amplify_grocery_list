@@ -12,9 +12,9 @@ void main() {
 class AmplifyGroceryListApp extends StatelessWidget {
   const AmplifyGroceryListApp({Key? key}) : super(key: key);
 
+  // TODO(3): Initialize Amplify and Add Authentication
   @override
   Widget build(BuildContext context) {
-    // TODO(3): Initialize Amplify and Add Authentication
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: customLightTheme,

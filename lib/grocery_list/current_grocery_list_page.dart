@@ -121,7 +121,7 @@ class _CurrentGroceryListPageState extends State<CurrentGroceryListPage> {
                 } else {
                   final item = items[index];
                   return ListTile(
-                    onTap: () => _buyItem(item),
+                    onTap: () {},
                     title: Text(
                       item.name,
                       style: TextStyle(
@@ -136,14 +136,5 @@ class _CurrentGroceryListPageState extends State<CurrentGroceryListPage> {
               },
             ),
     );
-  }
-
-  void _buyItem(TemporaryGroceryItem item) {
-    final newGrocery = item.copyWith(isBought: true);
-    final position = items.indexOf(item);
-    items.remove(item);
-    setState(() {
-      items.insert(position, newGrocery);
-    });
   }
 }

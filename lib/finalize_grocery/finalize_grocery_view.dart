@@ -133,7 +133,7 @@ class _FinalizeGroceryViewState extends State<FinalizeGroceryView> {
   Future<PlatformFile?> pickFile() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'pdf', 'png', 'jpeg'],
+      allowedExtensions: ['jpg', 'png', 'jpeg'],
     );
 
     if (result != null) {

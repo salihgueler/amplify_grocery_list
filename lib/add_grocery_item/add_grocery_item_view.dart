@@ -76,7 +76,7 @@ class _AddGroceryItemViewState extends State<AddGroceryItemView> {
             Padding(
               padding: const EdgeInsets.all(8),
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState?.validate() ?? false) {
                     // TODO(9): Add GraphQL API
                     widget.onItemAdded(
@@ -86,7 +86,9 @@ class _AddGroceryItemViewState extends State<AddGroceryItemView> {
                         false,
                       ),
                     );
-                    Navigator.of(context).pop();
+                    if (mounted) {
+                      Navigator.of(context).pop();
+                    }
                   }
                 },
                 child: const Text('Add Item'),

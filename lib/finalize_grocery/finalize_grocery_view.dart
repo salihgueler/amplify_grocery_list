@@ -99,7 +99,7 @@ class _FinalizeGroceryViewState extends State<FinalizeGroceryView> {
                   if (_formKey.currentState?.validate() ?? false) {
                     final platformFile = await pickFile();
                     if (platformFile != null) {
-                      // TODO(8): Add GraphQL API
+                      // TODO(10): Add GraphQL API
                       // TODO(11): Add Storage
                       previousGroceries.add(
                         TemporaryPreviousGrocery(

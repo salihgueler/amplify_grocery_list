@@ -1,13 +1,18 @@
-import 'package:amplify_grocery_list/models/temporary_grocery_item.dart';
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_grocery_list/models/GroceryItem.dart';
+import 'package:amplify_grocery_list/utils/helpers.dart';
 import 'package:flutter/material.dart';
 
 class AddGroceryItemView extends StatefulWidget {
   const AddGroceryItemView({
+    required this.groceryId,
     required this.onItemAdded,
     Key? key,
   }) : super(key: key);
 
-  final ValueSetter<TemporaryGroceryItem> onItemAdded;
+  final ValueSetter<GroceryItem> onItemAdded;
+  final String groceryId;
 
   @override
   State<AddGroceryItemView> createState() => _AddGroceryItemViewState();
@@ -78,16 +83,26 @@ class _AddGroceryItemViewState extends State<AddGroceryItemView> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState?.validate() ?? false) {
-                    // TODO(9): Add GraphQL API
-                    widget.onItemAdded(
-                      TemporaryGroceryItem(
-                        int.parse(countController.text),
-                        itemController.text,
-                        false,
-                      ),
+                    // New grocery item is created
+                    final item = GroceryItem(
+                      count: int.parse(countController.text),
+                      name: itemController.text,
+                      isBought: false,
+                      groceryID: widget.groceryId,
                     );
-                    if (mounted) {
-                      Navigator.of(context).pop();
+
+// Mutation is created and passed.
+                    final mutation = ModelMutations.create(item);
+                    final result = await runMutation(mutation, (error) {
+                      safePrint(error);
+                    });
+
+// Added item returned to be part of the list
+                    if (result != null) {
+                      widget.onItemAdded(result);
+                      if (mounted) {
+                        Navigator.of(context).pop();
+                      }
                     }
                   }
                 },

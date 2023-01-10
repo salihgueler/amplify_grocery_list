@@ -1,8 +1,9 @@
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_grocery_list/grocery_list/previous_grocery_details.dart';
-import 'package:amplify_grocery_list/models/temporary_previous_grocery.dart';
+import 'package:amplify_grocery_list/models/Grocery.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-
-final previousGroceries = <TemporaryPreviousGrocery>[];
 
 class PreviousGroceriesPage extends StatelessWidget {
   const PreviousGroceriesPage({Key? key}) : super(key: key);
@@ -13,11 +14,14 @@ class PreviousGroceriesPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Previous Groceries'),
       ),
-      body: previousGroceries.isEmpty
-          ? const Center(
-              child: Text('No previous groceries in the list yet'),
-            )
-          : ListView.builder(
+      body: FutureBuilder<List<Grocery>>(
+        future: fetchPreviousGroceries(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasData) {
+            final previousGroceries = snapshot.data!;
+            return ListView.builder(
               itemCount: previousGroceries.length,
               itemBuilder: (context, index) {
                 final item = previousGroceries[index];
@@ -39,7 +43,23 @@ class PreviousGroceriesPage extends StatelessWidget {
                   },
                 );
               },
-            ),
+            );
+          } else {
+            return const Center(
+              child: Text('No previous groceries in the list yet'),
+            );
+          }
+        },
+      ),
     );
+  }
+
+  Future<List<Grocery>> fetchPreviousGroceries() async {
+    final queryPredicate = Grocery.FINALIZATIONDATE.ne(null);
+    final request =
+        ModelQueries.list<Grocery>(Grocery.classType, where: queryPredicate);
+    final response = await Amplify.API.query(request: request).response;
+    return response.data?.items.whereNotNull().toList(growable: false) ??
+        <Grocery>[];
   }
 }

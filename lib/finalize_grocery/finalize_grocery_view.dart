@@ -1,6 +1,8 @@
-import 'package:amplify_grocery_list/grocery_list/previous_groceries_page.dart';
-import 'package:amplify_grocery_list/models/temporary_grocery_item.dart';
-import 'package:amplify_grocery_list/models/temporary_previous_grocery.dart';
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_grocery_list/models/Grocery.dart';
+import 'package:amplify_grocery_list/models/GroceryItem.dart';
+import 'package:amplify_grocery_list/utils/helpers.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -8,11 +10,13 @@ class FinalizeGroceryView extends StatefulWidget {
   const FinalizeGroceryView({
     required this.items,
     required this.onFinalized,
+    required this.currentGrocery,
     Key? key,
   }) : super(key: key);
 
   final VoidCallback onFinalized;
-  final List<TemporaryGroceryItem> items;
+  final List<GroceryItem> items;
+  final Grocery currentGrocery;
 
   @override
   State<FinalizeGroceryView> createState() => _FinalizeGroceryViewState();
@@ -99,18 +103,28 @@ class _FinalizeGroceryViewState extends State<FinalizeGroceryView> {
                   if (_formKey.currentState?.validate() ?? false) {
                     final platformFile = await pickFile();
                     if (platformFile != null) {
-                      // TODO(10): Add GraphQL API
-                      // TODO(11): Add Storage
-                      previousGroceries.add(
-                        TemporaryPreviousGrocery(
-                          double.parse(amountController.text),
-                          platformFile.name,
-                          DateTime.now().toIso8601String(),
-                          titleController.text,
-                          List.from(widget.items),
-                        ),
+                      await Amplify.Storage.uploadFile(
+                        localFile: AWSFile.fromPath(platformFile.path!),
+                        key: widget.currentGrocery.id,
+                        onProgress: (progress) {
+                          safePrint(
+                            'Fraction completed: ${progress.fractionCompleted}',
+                          );
+                        },
+                      ).result;
+                      final grocery = widget.currentGrocery.copyWith(
+                        totalAmount: double.parse(amountController.text),
+                        fileKey: widget.currentGrocery.id,
+                        finalizationDate: TemporalDate(DateTime.now()),
+                        title: titleController.text,
                       );
-                      if (mounted) {
+
+                      final request = ModelMutations.update(grocery);
+                      final result = await runMutation(request, (error) {
+                        safePrint(error);
+                      });
+
+                      if (result != null && mounted) {
                         Navigator.of(context).pop();
                         widget.onFinalized();
                       }

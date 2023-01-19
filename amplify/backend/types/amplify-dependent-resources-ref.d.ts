@@ -6,7 +6,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "auth": {
-    "amplifygrocerylist292f7974": {
+    "amplifygrocerylista220fb79": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
       "IdentityPoolId": "string",
@@ -17,7 +17,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "s33089d4e7": {
+    "s34f34a328": {
       "BucketName": "string",
       "Region": "string"
     }

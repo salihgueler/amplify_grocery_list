@@ -5,9 +5,6 @@ bool isMobile() =>
     defaultTargetPlatform == TargetPlatform.iOS ||
     defaultTargetPlatform == TargetPlatform.android;
 
-// TODO(8): Uncomment this to run mutations (part of other TODO(8)).
-// Import this for function to work.
-// import 'package:amplify_flutter/amplify_flutter.dart';
 // // This method runs the mutations for the API category and handles the errors properly.
 Future<T?> runMutation<T>(
   GraphQLRequest<T> request,

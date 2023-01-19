@@ -13,4 +13,4 @@ type GroceryItem @model @auth(rules: [{allow: owner}]) {
   isBought: Boolean!
   count: Int!
   groceryID: ID! @index(name: "byGrocery")
-}
+} 

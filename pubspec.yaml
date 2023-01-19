@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   file_picker: ^5.2.2
+  google_fonts: ^3.0.1
   # Flutter relies on the version 1.16.0 for collection
   collection: ^1.16.0
   amplify_flutter: ^1.0.0-next.1
@@ -19,7 +20,9 @@ dependencies:
   amplify_authenticator: ^1.0.0-next.1
   amplify_api: ^1.0.0-next.1
   amplify_storage_s3: ^1.0.0-next.1
-
+  bloc: ^8.1.0
+  flutter_bloc: ^8.1.1
+  equatable: ^2.0.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

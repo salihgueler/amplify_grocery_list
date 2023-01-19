@@ -7,16 +7,20 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "amplifygrocerylist292f7974"
+          "resourceName": "amplifygrocerylista220fb79"
         }
       ],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [],
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authamplifygrocerylist292f7974"
+              "userPoolId": "authamplifygrocerylista220fb79"
             }
           }
         }
@@ -26,7 +30,7 @@
     }
   },
   "auth": {
-    "amplifygrocerylist292f7974": {
+    "amplifygrocerylista220fb79": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -52,7 +56,7 @@
     }
   },
   "storage": {
-    "s33089d4e7": {
+    "s34f34a328": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "S3"

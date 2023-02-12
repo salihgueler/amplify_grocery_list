@@ -1,6 +1,6 @@
 # Amplify Grocery List
 
-Amplify Grocery List project is the sample application that is created for teaching people about Amplify Flutter Developer Preview libraries over this (blog post.)[https://aws.amazon.com/blogs/mobile/announcing-flutter-web-and-desktop-support-for-aws-amplify-storage-analytics-and-api-libraries/] 
+Amplify Grocery List project is the sample application that is created for teaching people about Amplify Flutter Developer Preview libraries over this [blog post.](https://aws.amazon.com/blogs/mobile/announcing-flutter-web-and-desktop-support-for-aws-amplify-storage-analytics-and-api-libraries/)
 
 ## Running the project
 
@@ -11,7 +11,7 @@ Amplify Grocery List project is the sample application that is created for teach
 
 - An AWS Account
 - Amplify CLI setup
-- Check out the (guide)[https://medium.com/flutter-community/mastering-aws-amplifys-sms-flows-in-flutter-part-1-aws-setup-ef748798fdbf] I created for you for setting it up.
+- Check out the [guide](https://medium.com/flutter-community/mastering-aws-amplifys-sms-flows-in-flutter-part-1-aws-setup-ef748798fdbf) I created for you for setting it up.
 
 ### Initializing the project
 Run `amplify init` to initialize the Amplify in your project.
@@ -156,11 +156,11 @@ Run `amplify push --yes` to push your changes to the cloud.
 
 ## Resources
 
-- (Announcing Flutter Web and Desktop support for AWS Amplify Storage, Analytics and API libraries)[https://aws.amazon.com/blogs/mobile/announcing-flutter-web-and-desktop-support-for-aws-amplify-storage-analytics-and-api-libraries/]
+- [Announcing Flutter Web and Desktop support for AWS Amplify Storage, Analytics and API libraries](https://aws.amazon.com/blogs/mobile/announcing-flutter-web-and-desktop-support-for-aws-amplify-storage-analytics-and-api-libraries/)
 - Refactoring series
-  - (Project Walkthrough)[https://www.youtube.com/watch?v=SqyEhFbzlks]
-  - (Adding Cubit State Management I)[https://www.youtube.com/watch?v=Lzb0tqFNAf0]
-  - (Adding Cubit State Management II)[https://www.youtube.com/watch?v=TA4XtwX792c]
-  - (Adding Cubit State Management III)[https://www.youtube.com/watch?v=1Hsy4Xn4voQ]
-  - (UI Refactoring I)[https://www.youtube.com/watch?v=mgSBpjSwCfg]
-  - (UI Refactoring II)[https://www.youtube.com/watch?v=qleum2AKuF4]
+  - [Project Walkthrough](https://www.youtube.com/watch?v=SqyEhFbzlks)
+  - [Adding Cubit State Management I)(https://www.youtube.com/watch?v=Lzb0tqFNAf0)
+  - [Adding Cubit State Management II)(https://www.youtube.com/watch?v=TA4XtwX792c)
+  - [Adding Cubit State Management III)(https://www.youtube.com/watch?v=1Hsy4Xn4voQ)
+  - [UI Refactoring I](https://www.youtube.com/watch?v=mgSBpjSwCfg)
+  - [UI Refactoring II](https://www.youtube.com/watch?v=qleum2AKuF4)

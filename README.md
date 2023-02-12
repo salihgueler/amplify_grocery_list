@@ -159,8 +159,8 @@ Run `amplify push --yes` to push your changes to the cloud.
 - [Announcing Flutter Web and Desktop support for AWS Amplify Storage, Analytics and API libraries](https://aws.amazon.com/blogs/mobile/announcing-flutter-web-and-desktop-support-for-aws-amplify-storage-analytics-and-api-libraries/)
 - Refactoring series
   - [Project Walkthrough](https://www.youtube.com/watch?v=SqyEhFbzlks)
-  - [Adding Cubit State Management I)(https://www.youtube.com/watch?v=Lzb0tqFNAf0)
-  - [Adding Cubit State Management II)(https://www.youtube.com/watch?v=TA4XtwX792c)
-  - [Adding Cubit State Management III)(https://www.youtube.com/watch?v=1Hsy4Xn4voQ)
+  - [Adding Cubit State Management I](https://www.youtube.com/watch?v=Lzb0tqFNAf0)
+  - [Adding Cubit State Management II](https://www.youtube.com/watch?v=TA4XtwX792c)
+  - [Adding Cubit State Management III](https://www.youtube.com/watch?v=1Hsy4Xn4voQ)
   - [UI Refactoring I](https://www.youtube.com/watch?v=mgSBpjSwCfg)
   - [UI Refactoring II](https://www.youtube.com/watch?v=qleum2AKuF4)

@@ -31,6 +31,7 @@ class GroceryItem extends Model {
   final String? _name;
   final bool? _isBought;
   final int? _count;
+  final double? _amount;
   final String? _groceryID;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
@@ -87,6 +88,19 @@ class GroceryItem extends Model {
     }
   }
   
+  double get amount {
+    try {
+      return _amount!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
   String get groceryID {
     try {
       return _groceryID!;
@@ -108,14 +122,15 @@ class GroceryItem extends Model {
     return _updatedAt;
   }
   
-  const GroceryItem._internal({required this.id, required name, required isBought, required count, required groceryID, createdAt, updatedAt}): _name = name, _isBought = isBought, _count = count, _groceryID = groceryID, _createdAt = createdAt, _updatedAt = updatedAt;
+  const GroceryItem._internal({required this.id, required name, required isBought, required count, required amount, required groceryID, createdAt, updatedAt}): _name = name, _isBought = isBought, _count = count, _amount = amount, _groceryID = groceryID, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory GroceryItem({String? id, required String name, required bool isBought, required int count, required String groceryID}) {
+  factory GroceryItem({String? id, required String name, required bool isBought, required int count, required double amount, required String groceryID}) {
     return GroceryItem._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
       isBought: isBought,
       count: count,
+      amount: amount,
       groceryID: groceryID);
   }
   
@@ -131,6 +146,7 @@ class GroceryItem extends Model {
       _name == other._name &&
       _isBought == other._isBought &&
       _count == other._count &&
+      _amount == other._amount &&
       _groceryID == other._groceryID;
   }
   
@@ -146,6 +162,7 @@ class GroceryItem extends Model {
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("isBought=" + (_isBought != null ? _isBought!.toString() : "null") + ", ");
     buffer.write("count=" + (_count != null ? _count!.toString() : "null") + ", ");
+    buffer.write("amount=" + (_amount != null ? _amount!.toString() : "null") + ", ");
     buffer.write("groceryID=" + "$_groceryID" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
@@ -154,12 +171,13 @@ class GroceryItem extends Model {
     return buffer.toString();
   }
   
-  GroceryItem copyWith({String? name, bool? isBought, int? count, String? groceryID}) {
+  GroceryItem copyWith({String? name, bool? isBought, int? count, double? amount, String? groceryID}) {
     return GroceryItem._internal(
       id: id,
       name: name ?? this.name,
       isBought: isBought ?? this.isBought,
       count: count ?? this.count,
+      amount: amount ?? this.amount,
       groceryID: groceryID ?? this.groceryID);
   }
   
@@ -168,16 +186,17 @@ class GroceryItem extends Model {
       _name = json['name'],
       _isBought = json['isBought'],
       _count = (json['count'] as num?)?.toInt(),
+      _amount = (json['amount'] as num?)?.toDouble(),
       _groceryID = json['groceryID'],
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'isBought': _isBought, 'count': _count, 'groceryID': _groceryID, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'name': _name, 'isBought': _isBought, 'count': _count, 'amount': _amount, 'groceryID': _groceryID, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'name': _name, 'isBought': _isBought, 'count': _count, 'groceryID': _groceryID, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'name': _name, 'isBought': _isBought, 'count': _count, 'amount': _amount, 'groceryID': _groceryID, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<GroceryItemModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<GroceryItemModelIdentifier>();
@@ -185,6 +204,7 @@ class GroceryItem extends Model {
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField ISBOUGHT = QueryField(fieldName: "isBought");
   static final QueryField COUNT = QueryField(fieldName: "count");
+  static final QueryField AMOUNT = QueryField(fieldName: "amount");
   static final QueryField GROCERYID = QueryField(fieldName: "groceryID");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "GroceryItem";
@@ -226,6 +246,12 @@ class GroceryItem extends Model {
       key: GroceryItem.COUNT,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: GroceryItem.AMOUNT,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.double)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(

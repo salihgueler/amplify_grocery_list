@@ -1,12 +1,11 @@
 import 'package:amplify_grocery_list/add_grocery_item/add_grocery_item_cubit.dart';
-import 'package:amplify_grocery_list/add_grocery_item/add_grocery_item_view.dart';
-import 'package:amplify_grocery_list/finalize_grocery/finalize_grocery_view.dart';
-import 'package:amplify_grocery_list/finalize_grocery/finalize_grocery_view_cubit.dart';
+import 'package:amplify_grocery_list/add_grocery_item/add_grocery_item_page.dart';
+import 'package:amplify_grocery_list/finalize_grocery/finalize_grocery_page.dart';
+import 'package:amplify_grocery_list/finalize_grocery/finalize_grocery_cubit.dart';
 import 'package:amplify_grocery_list/grocery_list/current_grocery/current_grocery_list_cubit.dart';
 import 'package:amplify_grocery_list/grocery_list/previous_grocery_list/previous_groceries_page.dart';
 import 'package:amplify_grocery_list/models/Grocery.dart';
 import 'package:amplify_grocery_list/models/GroceryItem.dart';
-import 'package:amplify_grocery_list/utils/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,85 +36,66 @@ class _CurrentGroceryListPageState extends State<CurrentGroceryListPage> {
     return BlocBuilder<CurrentGroceryListCubit, CurrentGroceryListState>(
       bloc: currentGroceryCubit,
       builder: (context, state) {
-        if (state is CurrentGroceryListSuccess) {
-          final grocery = state.currentGrocery;
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Current Grocery List'),
-              actions: [
-                IconButton(
+        // if (state is CurrentGroceryListSuccess) {
+        // final grocery = state.currentGrocery;
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Current Grocery List'),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const PreviousGroceriesPage(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.history),
+              ),
+              IconButton(
+                onPressed: () {
+                  currentGroceryCubit.signUserOut();
+                },
+                icon: const Icon(Icons.exit_to_app),
+              ),
+            ],
+          ),
+          floatingActionButton: (state is CurrentGroceryListSuccess)
+              ? FloatingActionButton.extended(
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const PreviousGroceriesPage(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.history),
-                ),
-                IconButton(
-                  onPressed: () {
-                    currentGroceryCubit.signUserOut();
-                  },
-                  icon: const Icon(Icons.exit_to_app),
-                ),
-              ],
-            ),
-            floatingActionButton: FloatingActionButton.extended(
-              onPressed: () {
-                if (isMobile()) {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (context) => Padding(
-                      padding: const EdgeInsets.all(8.0) +
-                          MediaQuery.of(context).viewInsets,
-                      child: _AddGroceryItemView(
-                        onItemAdded: (groceryItem) {
-                          currentGroceryCubit.fetchCurrentGrocery();
-                        },
-                        groceryId: grocery.id,
-                      ),
-                    ),
-                  );
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return SimpleDialog(
-                        backgroundColor: Colors.transparent,
-                        children: [
-                          _AddGroceryItemView(
+                        builder: (context) {
+                          return _AddGroceryItemView(
                             onItemAdded: (groceryItem) {
                               currentGroceryCubit.fetchCurrentGrocery();
                             },
-                            groceryId: grocery.id,
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }
-              },
-              label: const Text('Add Item'),
-            ),
-            body: grocery.groceryItems == null || grocery.groceryItems!.isEmpty
-                ? const Center(
-                    child: Text('No current groceries'),
-                  )
-                : _GroceryItemsView(
-                    items: grocery.groceryItems!,
-                    grocery: grocery,
-                    onFinalized: () {
-                      currentGroceryCubit.fetchCurrentGrocery();
-                    },
-                  ),
-          );
-        } else if (state is CurrentGroceryListError) {
-          return Center(child: Text(state.errorMessage));
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
+                            groceryId: state.currentGrocery.id,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  label: const Text('Add Item'),
+                )
+              : null,
+          body: (state is CurrentGroceryListSuccess)
+              ? state.currentGrocery.groceryItems == null ||
+                      state.currentGrocery.groceryItems!.isEmpty
+                  ? const Center(
+                      child: Text('No current groceries'),
+                    )
+                  : _GroceryItemsView(
+                      items: state.currentGrocery.groceryItems!,
+                      grocery: state.currentGrocery,
+                      onFinalized: () {
+                        currentGroceryCubit.fetchCurrentGrocery();
+                      },
+                    )
+              : (state is CurrentGroceryListError)
+                  ? Center(child: Text(state.errorMessage))
+                  : const Center(child: CircularProgressIndicator()),
+        );
       },
     );
   }
@@ -138,49 +118,42 @@ class _FinalizeGroceryView extends StatefulWidget {
 }
 
 class _FinalizeGroceryViewState extends State<_FinalizeGroceryView> {
-  late final FinalizeGroceryViewCubit finalizeGroceryViewCubit;
-
-  @override
-  void initState() {
-    super.initState();
-    finalizeGroceryViewCubit = FinalizeGroceryViewCubit();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<FinalizeGroceryViewCubit, FinalizeGroceryViewState>(
-      bloc: finalizeGroceryViewCubit,
+    return BlocConsumer<FinalizeGroceryCubit, FinalizeGroceryState>(
       listener: (context, state) {
-        if (state is FinalizeGroceryViewSuccess) {
+        if (state is FinalizeGrocerySuccess) {
+          Navigator.of(context).pop();
           widget.onFinalized();
         }
       },
       builder: (context, state) {
-        if (state is FinalizeGroceryViewLoading) {
-          return const CircularProgressIndicator();
-        } else if (state is FinalizeGroceryViewError) {
-          return Text(state.errorMessage);
-        } else {
-          return FinalizeGroceryView(
-            items: List.from(widget.items),
-            currentGroceryId: widget.grocery.id,
-            onFinalized: (
-              totalAmount,
-              title,
-              id,
-              finalizationDate,
-              filePath,
-            ) {
-              finalizeGroceryViewCubit.finalizeGrocery(
-                filePath,
-                id,
-                title,
-                totalAmount,
-                widget.grocery,
-              );
-            },
-          );
-        }
+        return FinalizeGroceryPage(
+          items: List.from(widget.items),
+          currentGroceryId: widget.grocery.id,
+          isLoading: state is FinalizeGroceryLoading,
+          uploadPercentage: (state is FinalizeGroceryFileUploadState)
+              ? state.percentage
+              : null,
+          errorMessage:
+              (state is FinalizeGroceryError) ? state.errorMessage : null,
+          onFinalized: (
+            totalAmount,
+            title,
+            id,
+            finalizationDate,
+            filePath,
+          ) {
+            context.read<FinalizeGroceryCubit>().finalizeGrocery(
+                  filePath,
+                  id,
+                  title,
+                  totalAmount,
+                  widget.grocery,
+                );
+          },
+        );
+        // }
       },
     );
   }
@@ -226,19 +199,20 @@ class _AddGroceryItemViewState extends State<_AddGroceryItemView> {
         }
       },
       builder: (context, state) {
-        if (state is AddGroceryItemLoading) {
-          return const CircularProgressIndicator();
-        } else if (state is AddGroceryItemError) {
+        if (state is AddGroceryItemError) {
           return Text(state.errorMessage);
         } else {
-          return AddGroceryItemView(
+          return AddGroceryItemPage(
+            isLoading: (state is AddGroceryItemLoading),
             onItemAdded: (
               count,
+              amount,
               itemName,
               groceryId,
             ) {
               addGroceryItemCubit.addGroceryItem(
                 count,
+                amount,
                 itemName,
                 groceryId,
               );
@@ -271,37 +245,17 @@ class _GroceryItemsView extends StatelessWidget {
         if (index == items.length) {
           return ElevatedButton(
             onPressed: () {
-              if (isMobile()) {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) => Padding(
-                    padding: const EdgeInsets.all(8.0) +
-                        MediaQuery.of(context).viewInsets,
-                    child: _FinalizeGroceryView(
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return _FinalizeGroceryView(
                       onFinalized: onFinalized,
                       items: items,
                       grocery: grocery,
-                    ),
-                  ),
-                );
-              } else {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return SimpleDialog(
-                      backgroundColor: Colors.transparent,
-                      children: [
-                        _FinalizeGroceryView(
-                          onFinalized: onFinalized,
-                          items: items,
-                          grocery: grocery,
-                        )
-                      ],
                     );
                   },
-                );
-              }
+                ),
+              );
             },
             child: const Text('End shopping'),
           );
@@ -311,13 +265,9 @@ class _GroceryItemsView extends StatelessWidget {
             onTap: () {},
             title: Text(
               item.name,
-              style: TextStyle(
-                decoration: item.isBought
-                    ? TextDecoration.lineThrough
-                    : TextDecoration.none,
-              ),
             ),
-            subtitle: Text('You need to buy ${item.count} of these'),
+            subtitle: Text(
+                'You bought ${item.count} of these, each costing ${item.amount} and should overall cost \$${item.count * item.amount}'),
           );
         }
       },

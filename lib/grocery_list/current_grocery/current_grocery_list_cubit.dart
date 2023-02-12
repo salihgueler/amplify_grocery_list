@@ -22,7 +22,7 @@ class CurrentGroceryListCubit extends Cubit<CurrentGroceryListState> {
     final groceryResponse =
         await Amplify.API.query(request: groceryRequest).response;
 
-    final grocery = groceryResponse.data?.items.whereNotNull().first;
+    final grocery = groceryResponse.data?.items.whereNotNull().firstOrNull;
     if (grocery != null) {
       final id = grocery.id;
       final queryPredicate = GroceryItem.GROCERYID.eq(id);

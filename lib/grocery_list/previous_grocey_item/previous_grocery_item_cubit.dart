@@ -3,23 +3,22 @@ import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-part 'previous_grocery_details_state.dart';
+part 'previous_grocery_item_state.dart';
 
 class PreviousGroceryDetailsCubit extends Cubit<PreviousGroceryDetailsState> {
   PreviousGroceryDetailsCubit() : super(PreviousGroceryDetailsInitial());
 
   Future<void> getDownloadUrl({
     required String key,
-    required StorageAccessLevel accessLevel,
   }) async {
     try {
       emit(PreviousGroceryDetailsLoading());
       final result = await Amplify.Storage.getUrl(
         key: key,
-        options: S3GetUrlOptions(
-          accessLevel: accessLevel,
+        options: const S3GetUrlOptions(
+          accessLevel: StorageAccessLevel.guest,
           checkObjectExistence: true,
-          expiresIn: const Duration(hours: 1),
+          expiresIn: Duration(hours: 1),
         ),
       ).result;
       emit(PreviousGroceryDetailsSuccess(result.url.toString()));

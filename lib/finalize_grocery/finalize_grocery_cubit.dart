@@ -5,10 +5,10 @@ import 'package:amplify_grocery_list/utils/helpers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-part 'finalize_grocery_view_state.dart';
+part 'finalize_grocery_state.dart';
 
-class FinalizeGroceryViewCubit extends Cubit<FinalizeGroceryViewState> {
-  FinalizeGroceryViewCubit() : super(FinalizeGroceryViewInitial());
+class FinalizeGroceryCubit extends Cubit<FinalizeGroceryState> {
+  FinalizeGroceryCubit() : super(FinalizeGroceryInitial());
 
   Future<void> finalizeGrocery(
     String filePath,
@@ -17,18 +17,21 @@ class FinalizeGroceryViewCubit extends Cubit<FinalizeGroceryViewState> {
     double totalAmount,
     Grocery currentGrocery,
   ) async {
-    emit(FinalizeGroceryViewLoading());
+    emit(FinalizeGroceryLoading());
     await Amplify.Storage.uploadFile(
       localFile: AWSFile.fromPath(
         filePath,
       ),
       key: id,
       onProgress: (progress) {
-        safePrint(
-          'Fraction completed: ${progress.fractionCompleted}',
+        emit(
+          FinalizeGroceryFileUploadState(progress.fractionCompleted),
         );
       },
     ).result;
+
+    emit(FinalizeGroceryLoading());
+
     final newGrocery = currentGrocery.copyWith(
       totalAmount: totalAmount,
       fileKey: id,
@@ -38,8 +41,8 @@ class FinalizeGroceryViewCubit extends Cubit<FinalizeGroceryViewState> {
 
     final request = ModelMutations.update(newGrocery);
     await runMutation(request, (error) {
-      emit(FinalizeGroceryViewError(error));
+      emit(FinalizeGroceryError(error));
     });
-    emit(FinalizeGroceryViewSuccess(newGrocery));
+    emit(FinalizeGrocerySuccess(newGrocery));
   }
 }

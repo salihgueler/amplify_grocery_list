@@ -11,6 +11,7 @@ class AddGroceryItemCubit extends Cubit<AddGroceryItemState> {
 
   Future<void> addGroceryItem(
     int count,
+    double amount,
     String itemName,
     String groceryId,
   ) async {
@@ -18,6 +19,7 @@ class AddGroceryItemCubit extends Cubit<AddGroceryItemState> {
     final item = GroceryItem(
       count: count,
       name: itemName,
+      amount: amount,
       isBought: false,
       groceryID: groceryId,
     );

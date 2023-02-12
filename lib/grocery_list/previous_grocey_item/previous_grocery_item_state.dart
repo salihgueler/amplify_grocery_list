@@ -1,4 +1,4 @@
-part of 'previous_grocery_details_cubit.dart';
+part of 'previous_grocery_item_cubit.dart';
 
 abstract class PreviousGroceryDetailsState extends Equatable {}
 

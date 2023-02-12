@@ -11,7 +11,9 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   exclude:
-    - lib/models
+    - lib/models/Grocery.dart
+    - lib/models/GroceryItem.dart
+
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`

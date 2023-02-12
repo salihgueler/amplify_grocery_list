@@ -1,5 +1,5 @@
-import 'package:amplify_grocery_list/grocery_list/grocery_details/previous_grocery_details.dart';
 import 'package:amplify_grocery_list/grocery_list/previous_grocery_list/previous_groceries_cubit.dart';
+import 'package:amplify_grocery_list/grocery_list/previous_grocey_item/previous_grocery_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,6 +30,7 @@ class _PreviousGroceriesPageState extends State<PreviousGroceriesPage> {
         builder: (context, state) {
           if (state is PreviousGroceriesSuccess) {
             final previousGroceries = state.groceries;
+            print(previousGroceries);
             if (previousGroceries.isEmpty) {
               return const Center(
                 child: Text('No previous groceries in the list yet'),
@@ -39,22 +40,9 @@ class _PreviousGroceriesPageState extends State<PreviousGroceriesPage> {
                 itemCount: previousGroceries.length,
                 itemBuilder: (context, index) {
                   final item = previousGroceries[index];
-                  return ListTile(
-                    title: Text(item.title!),
-                    subtitle: Text(
-                      'You paid ${item.totalAmount} on ${item.finalizationDate}',
-                    ),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return PreviousGroceryDetailsPage(
-                              item: item,
-                            );
-                          },
-                        ),
-                      );
-                    },
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: PreviousGroceryItem(item: item),
                   );
                 },
               );

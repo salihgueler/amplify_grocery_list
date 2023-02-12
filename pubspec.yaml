@@ -11,18 +11,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  file_picker: ^5.2.2
+  file_picker: ^5.2.5
   google_fonts: ^3.0.1
   # Flutter relies on the version 1.16.0 for collection
   collection: ^1.16.0
-  amplify_flutter: ^1.0.0-next.1
-  amplify_auth_cognito: ^1.0.0-next.1
-  amplify_authenticator: ^1.0.0-next.1
-  amplify_api: ^1.0.0-next.1
-  amplify_storage_s3: ^1.0.0-next.1
-  bloc: ^8.1.0
+  amplify_flutter: ^1.0.0-next.4
+  amplify_auth_cognito: ^1.0.0-next.4
+  amplify_authenticator: ^1.0.0-next.3
+  amplify_api: ^1.0.0-next.4
+  amplify_storage_s3: ^1.0.0-next.4
+  bloc: ^8.1.1
   flutter_bloc: ^8.1.1
   equatable: ^2.0.5
+  cached_network_image: ^3.2.3
+  flex_color_scheme: ^7.0.0-dev.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

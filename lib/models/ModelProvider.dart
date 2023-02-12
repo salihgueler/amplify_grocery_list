@@ -28,7 +28,7 @@ export 'GroceryItem.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "05374defa1defd9bdf72690b8274ff16";
+  String version = "304f2d3f8724fba7388a2cbe4c81cdbe";
   @override
   List<ModelSchema> modelSchemas = [Grocery.schema, GroceryItem.schema];
   static final ModelProvider _instance = ModelProvider();

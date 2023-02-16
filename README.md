@@ -2,7 +2,7 @@
 
 Amplify Grocery List project is the sample application that is created for teaching people about Amplify Flutter Developer Preview libraries over this [blog post.](https://aws.amazon.com/blogs/mobile/announcing-flutter-web-and-desktop-support-for-aws-amplify-storage-analytics-and-api-libraries/)
 
-![Preview of the project](https://github.com/salihgueler/amplify_grocery_list/tree/cubit_version/assets/preview.gif)
+![Preview of the project](https://raw.githubusercontent.com/salihgueler/amplify_grocery_list/cubit_version/assets/preview.gif)
 
 ## Running the project
 

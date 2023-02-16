@@ -20,7 +20,6 @@ class AddGroceryItemCubit extends Cubit<AddGroceryItemState> {
       count: count,
       name: itemName,
       amount: amount,
-      isBought: false,
       groceryID: groceryId,
     );
     final mutation = ModelMutations.create(item);

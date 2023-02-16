@@ -2,13 +2,15 @@
 
 Amplify Grocery List project is the sample application that is created for teaching people about Amplify Flutter Developer Preview libraries over this [blog post.](https://aws.amazon.com/blogs/mobile/announcing-flutter-web-and-desktop-support-for-aws-amplify-storage-analytics-and-api-libraries/)
 
+![Preview of the project](https://github.com/salihgueler/amplify_grocery_list/tree/cubit_version/assets/preview.gif)
+
 ## Running the project
 
-### Flutter Libraries
-
+This section explains how you can run the project.
 
 ### Requirements
 
+- Flutter 3.0 or higher with proper Flutter setup
 - An AWS Account
 - Amplify CLI setup
 - Check out the [guide](https://medium.com/flutter-community/mastering-aws-amplifys-sms-flows-in-flutter-part-1-aws-setup-ef748798fdbf) I created for you for setting it up.
@@ -126,7 +128,6 @@ type Grocery @model @auth(rules: [{allow: owner}]) {
 type GroceryItem @model @auth(rules: [{allow: owner}]) {
   id: ID!
   name: String!
-  isBought: Boolean!
   count: Int!
   amount: Float!
   groceryID: ID! @index(name: "byGrocery")

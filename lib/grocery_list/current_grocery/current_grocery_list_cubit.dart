@@ -14,15 +14,20 @@ class CurrentGroceryListCubit extends Cubit<CurrentGroceryListState> {
 
   Future<void> fetchCurrentGrocery() async {
     emit(CurrentGroceryListLoading());
-    final queryPredicate = Grocery.FINALIZATIONDATE.eq(null);
+    // FIXME: Fix this with the predicate fix.
+    // final queryPredicate = Grocery.FINALIZATIONDATE.eq(null);
+    // final groceryRequest =
+    //     ModelQueries.list<Grocery>(Grocery.classType, where: queryPredicate);
+    final groceryRequest = ModelQueries.list<Grocery>(Grocery.classType);
+    final groceryResponse = await runMutation(groceryRequest, (error) {
+      emit(CurrentGroceryListError(error));
+    });
 
-    final groceryRequest =
-        ModelQueries.list<Grocery>(Grocery.classType, where: queryPredicate);
-
-    final groceryResponse =
-        await Amplify.API.query(request: groceryRequest).response;
-
-    final grocery = groceryResponse.data?.items.whereNotNull().firstOrNull;
+    final grocery = groceryResponse?.items
+        .whereNotNull()
+        // FIXME: Remove this with the predicate fix.
+        .where((item) => item.finalizationDate == null)
+        .firstOrNull;
     if (grocery != null) {
       final id = grocery.id;
       final queryPredicate = GroceryItem.GROCERYID.eq(id);
@@ -30,11 +35,14 @@ class CurrentGroceryListCubit extends Cubit<CurrentGroceryListState> {
         GroceryItem.classType,
         where: queryPredicate,
       );
-      final groceryItemResponse =
-          await Amplify.API.query(request: groceryItemRequest).response;
-      final fetchedItems = groceryItemResponse.data?.items
-          .whereNotNull()
-          .toList(growable: false);
+      final groceryItemResponse = await runMutation(
+        groceryItemRequest,
+        (error) {
+          emit(CurrentGroceryListError(error));
+        },
+      );
+      final fetchedItems =
+          groceryItemResponse?.items.whereNotNull().toList(growable: false);
 
       emit(
         CurrentGroceryListSuccess(

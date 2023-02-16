@@ -30,7 +30,6 @@ class _PreviousGroceriesPageState extends State<PreviousGroceriesPage> {
         builder: (context, state) {
           if (state is PreviousGroceriesSuccess) {
             final previousGroceries = state.groceries;
-            print(previousGroceries);
             if (previousGroceries.isEmpty) {
               return const Center(
                 child: Text('No previous groceries in the list yet'),

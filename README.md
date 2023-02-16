@@ -135,7 +135,7 @@ type GroceryItem @model @auth(rules: [{allow: owner}]) {
 ```
 
 #### Adding Storage
-Run `amplify add api` to add Amazon S3 support. Follow the guide to take you through the setup:
+Run `amplify add storage` to add Amazon S3 support. Follow the guide to take you through the setup:
 
 ```bash
 msalihg@bcd074760e20 amplify_grocery_list % amplify add storage

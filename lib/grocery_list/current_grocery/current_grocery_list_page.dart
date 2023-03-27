@@ -22,7 +22,7 @@ class _CurrentGroceryListPageState extends State<CurrentGroceryListPage> {
   @override
   void initState() {
     super.initState();
-    currentGroceryCubit.fetchCurrentGrocery();
+    currentGroceryCubit.subscribeToCurrentGrocery();
   }
 
   @override
@@ -67,9 +67,7 @@ class _CurrentGroceryListPageState extends State<CurrentGroceryListPage> {
                       MaterialPageRoute(
                         builder: (context) {
                           return _AddGroceryItemView(
-                            onItemAdded: (groceryItem) {
-                              currentGroceryCubit.fetchCurrentGrocery();
-                            },
+                            onItemAdded: (groceryItem) {},
                             groceryId: state.currentGrocery.id,
                           );
                         },
@@ -88,9 +86,7 @@ class _CurrentGroceryListPageState extends State<CurrentGroceryListPage> {
                   : _GroceryItemsView(
                       items: state.currentGrocery.groceryItems!,
                       grocery: state.currentGrocery,
-                      onFinalized: () {
-                        currentGroceryCubit.fetchCurrentGrocery();
-                      },
+                      onFinalized: () {},
                     )
               : (state is CurrentGroceryListError)
                   ? Center(child: Text(state.errorMessage))

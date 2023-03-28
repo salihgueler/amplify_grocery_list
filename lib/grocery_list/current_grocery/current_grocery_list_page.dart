@@ -25,11 +25,11 @@ class _CurrentGroceryListPageState extends State<CurrentGroceryListPage> {
     currentGroceryCubit.subscribeToCurrentGrocery();
   }
 
-  @override
-  void dispose() {
-    currentGroceryCubit.close();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   currentGroceryCubit.close();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

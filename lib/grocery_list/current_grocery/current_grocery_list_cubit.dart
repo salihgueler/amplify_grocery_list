@@ -14,7 +14,7 @@ class CurrentGroceryListCubit extends Cubit<CurrentGroceryListState> {
 
   void subscribeToCurrentGrocery() {
     final subscriptionRequest = ModelSubscriptions.onCreate(
-      Grocery.classType,
+      GroceryItem.classType,
       // where: Grocery.FINALIZATIONDATE.ne(null),
     );
 
@@ -30,14 +30,11 @@ class CurrentGroceryListCubit extends Cubit<CurrentGroceryListState> {
         safePrint('Subscription established');
       },
     );
-
-    try {
-      operation.listen((event) {
-        safePrint('Subscription event data received: ${event.data}');
-      });
-    } on Exception catch (e) {
-      safePrint('Error in subscription stream: $e');
-    }
+    operation.listen((event) {
+      safePrint('Subscription event data received: ${event.data}');
+    }).onError((error) {
+      safePrint('Subscription failed with error: $error');
+    });
   }
   // Future<void> fetchCurrentGrocery() async {
   //   emit(CurrentGroceryListLoading());

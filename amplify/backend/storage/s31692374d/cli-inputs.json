@@ -1,0 +1,14 @@
+{
+  "resourceName": "s31692374d",
+  "policyUUID": "1692374d",
+  "bucketName": "amplifygrocerylistb803690996b945558ff4e1693f37b",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

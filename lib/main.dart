@@ -14,6 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  AWSLogger().logLevel = LogLevel.verbose;
   await _configureAmplify();
   runApp(const AmplifyGroceryListApp());
 }

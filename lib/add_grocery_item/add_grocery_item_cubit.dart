@@ -1,4 +1,5 @@
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_grocery_list/models/GroceryItem.dart';
 import 'package:amplify_grocery_list/utils/helpers.dart';
 import 'package:bloc/bloc.dart';
@@ -27,6 +28,7 @@ class AddGroceryItemCubit extends Cubit<AddGroceryItemState> {
       emit(AddGroceryItemError(error));
     });
     if (result != null) {
+      safePrint(result);
       emit(AddGroceryItemSuccess(result));
     }
   }

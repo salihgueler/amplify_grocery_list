@@ -134,6 +134,7 @@ type GroceryItem @model @auth(rules: [{allow: owner}]) {
 } 
 ```
 
+Lastly run, `amplify codegen models` to generate the models for the GraphQL API.
 #### Adding Storage
 Run `amplify add storage` to add Amazon S3 support. Follow the guide to take you through the setup:
 

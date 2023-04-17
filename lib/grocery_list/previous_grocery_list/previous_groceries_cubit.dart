@@ -12,19 +12,15 @@ class PreviousGroceriesCubit extends Cubit<PreviousGroceriesState> {
 
   Future<void> fetchPreviousGroceries() async {
     emit(PreviousGroceriesLoading());
-    // FIXME: Fix this with the predicate fix.
-    // final queryPredicate = Grocery.FINALIZATIONDATE.ne(null);
-    // final request =
-    //     ModelQueries.list<Grocery>(Grocery.classType, where: queryPredicate);
-    final request = ModelQueries.list<Grocery>(Grocery.classType);
+
+    final queryPredicate = Grocery.FINALIZATIONDATE.ne(null);
+    final request =
+        ModelQueries.list<Grocery>(Grocery.classType, where: queryPredicate);
+
     final response = await runMutation(request, (error) {
       PreviousGroceriesError(error);
     });
-    final items = response?.items
-        .whereNotNull()
-        // FIXME: Remove this with the predicate fix.
-        .where((item) => item.finalizationDate != null)
-        .toList(growable: false);
+    final items = response?.items.whereNotNull().toList(growable: false);
     if (items == null) {
       emit(PreviousGroceriesError('Something went wrong while fetching data'));
     } else {

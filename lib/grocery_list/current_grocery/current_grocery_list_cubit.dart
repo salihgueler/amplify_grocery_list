@@ -14,20 +14,14 @@ class CurrentGroceryListCubit extends Cubit<CurrentGroceryListState> {
 
   Future<void> fetchCurrentGrocery() async {
     emit(CurrentGroceryListLoading());
-    // FIXME: Fix this with the predicate fix.
-    // final queryPredicate = Grocery.FINALIZATIONDATE.eq(null);
-    // final groceryRequest =
-    //     ModelQueries.list<Grocery>(Grocery.classType, where: queryPredicate);
-    final groceryRequest = ModelQueries.list<Grocery>(Grocery.classType);
+    final queryPredicate = Grocery.FINALIZATIONDATE.eq(null);
+    final groceryRequest =
+        ModelQueries.list<Grocery>(Grocery.classType, where: queryPredicate);
     final groceryResponse = await runMutation(groceryRequest, (error) {
       emit(CurrentGroceryListError(error));
     });
 
-    final grocery = groceryResponse?.items
-        .whereNotNull()
-        // FIXME: Remove this with the predicate fix.
-        .where((item) => item.finalizationDate == null)
-        .firstOrNull;
+    final grocery = groceryResponse?.items.whereNotNull().firstOrNull;
     if (grocery != null) {
       final id = grocery.id;
       final queryPredicate = GroceryItem.GROCERYID.eq(id);

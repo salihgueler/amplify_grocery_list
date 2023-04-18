@@ -118,7 +118,7 @@ Afterwards, go to _amplify/backend/api/<name-of-the-app>/schema.graphql_ and upd
 ```graphql
 type Grocery @model @auth(rules: [{allow: owner}]) {
   id: ID!
-  groceryItems: [GroceryItem] @hasMany(indexName: "byGrocery", fields: ["id"])
+  groceryItems: [GroceryItem!]! @hasMany(indexName: "byGrocery", fields: ["id"])
   title: String
   fileKey: String
   finalizationDate: AWSDate

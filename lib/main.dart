@@ -14,23 +14,24 @@ import 'package:google_fonts/google_fonts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await _configureAmplify();
-  runApp(const AmplifyGroceryListApp());
+  try {
+    await _configureAmplify();
+    runApp(const AmplifyGroceryListApp());
+  } on AmplifyException catch (e) {
+    safePrint(e);
+    runApp(ErrorWidget(e));
+  }
 }
 
 Future<void> _configureAmplify() async {
-  try {
-    await Amplify.addPlugins([
-      AmplifyAuthCognito(),
-      AmplifyAPI(modelProvider: ModelProvider.instance),
-      AmplifyStorageS3(),
-    ]);
+  await Amplify.addPlugins([
+    AmplifyAuthCognito(),
+    AmplifyAPI(modelProvider: ModelProvider.instance),
+    AmplifyStorageS3(),
+  ]);
 
-    await Amplify.configure(amplifyconfig);
-    safePrint('Successfully configured');
-  } on Exception catch (e) {
-    safePrint('Error configuring Amplify: $e');
-  }
+  await Amplify.configure(amplifyconfig);
+  safePrint('Successfully configured');
 }
 
 class AmplifyGroceryListApp extends StatelessWidget {

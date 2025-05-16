@@ -12,8 +12,8 @@ class AddGroceryItemPage extends StatefulWidget {
     required this.groceryId,
     required this.onItemAdded,
     required this.isLoading,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final GroceryItemSetter onItemAdded;
   final String groceryId;

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CurrentGroceryListPage extends StatefulWidget {
-  const CurrentGroceryListPage({Key? key}) : super(key: key);
+  const CurrentGroceryListPage({super.key});
 
   @override
   State<CurrentGroceryListPage> createState() => _CurrentGroceryListPageState();
@@ -103,11 +103,10 @@ class _CurrentGroceryListPageState extends State<CurrentGroceryListPage> {
 
 class _FinalizeGroceryView extends StatefulWidget {
   const _FinalizeGroceryView({
-    Key? key,
     required this.onFinalized,
     required this.grocery,
     required this.items,
-  }) : super(key: key);
+  });
 
   final VoidCallback onFinalized;
   final Grocery grocery;
@@ -163,8 +162,7 @@ class _AddGroceryItemView extends StatefulWidget {
   const _AddGroceryItemView({
     required this.onItemAdded,
     required this.groceryId,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final ValueSetter<GroceryItem> onItemAdded;
   final String groceryId;
@@ -230,8 +228,7 @@ class _GroceryItemsView extends StatelessWidget {
     required this.items,
     required this.onFinalized,
     required this.grocery,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final Grocery grocery;
   final List<GroceryItem> items;

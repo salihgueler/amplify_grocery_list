@@ -18,8 +18,8 @@ class FinalizeGroceryPage extends StatefulWidget {
     required this.isLoading,
     this.uploadPercentage,
     this.errorMessage,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final bool isLoading;
   final double? uploadPercentage;

@@ -26,7 +26,11 @@ Future<void> main() async {
 Future<void> _configureAmplify() async {
   await Amplify.addPlugins([
     AmplifyAuthCognito(),
-    AmplifyAPI(modelProvider: ModelProvider.instance),
+    AmplifyAPI(
+      options: APIPluginOptions(
+        modelProvider: ModelProvider.instance,
+      ),
+    ),
     AmplifyStorageS3(),
   ]);
 
@@ -35,7 +39,7 @@ Future<void> _configureAmplify() async {
 }
 
 class AmplifyGroceryListApp extends StatelessWidget {
-  const AmplifyGroceryListApp({Key? key}) : super(key: key);
+  const AmplifyGroceryListApp({super.key});
 
   @override
   Widget build(BuildContext context) {

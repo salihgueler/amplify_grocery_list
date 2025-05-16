@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PreviousGroceriesPage extends StatefulWidget {
-  const PreviousGroceriesPage({Key? key}) : super(key: key);
+  const PreviousGroceriesPage({super.key});
 
   @override
   State<PreviousGroceriesPage> createState() => _PreviousGroceriesPageState();

@@ -22,7 +22,8 @@ class FinalizeGroceryCubit extends Cubit<FinalizeGroceryState> {
       localFile: AWSFile.fromPath(
         filePath,
       ),
-      path: StoragePath.fromString('$id.png'),
+      path: StoragePath.fromString('public/$id.png'),
+      options: StorageUploadFileOptions(),
       onProgress: (progress) {
         emit(
           FinalizeGroceryFileUploadState(progress.fractionCompleted),

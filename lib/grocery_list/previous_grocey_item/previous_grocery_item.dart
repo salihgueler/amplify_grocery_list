@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PreviousGroceryItem extends StatelessWidget {
   const PreviousGroceryItem({
     required this.item,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Grocery item;
 
@@ -64,8 +64,7 @@ class PreviousGroceryItem extends StatelessWidget {
 class _InvoiceView extends StatefulWidget {
   const _InvoiceView({
     required this.fileKey,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final String fileKey;
 

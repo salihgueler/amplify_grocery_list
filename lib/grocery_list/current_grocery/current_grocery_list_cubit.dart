@@ -21,9 +21,7 @@ class CurrentGroceryListCubit extends Cubit<CurrentGroceryListState> {
       emit(CurrentGroceryListError(error));
     });
 
-    print(groceryResponse?.items);
     final grocery = groceryResponse?.items.whereNotNull().firstOrNull;
-    print(grocery?.groceryItems);
     if (grocery != null) {
       final id = grocery.id;
       final queryPredicate = GroceryItem.GROCERYID.eq(id);

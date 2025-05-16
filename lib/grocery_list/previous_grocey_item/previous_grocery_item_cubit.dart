@@ -14,7 +14,7 @@ class PreviousGroceryDetailsCubit extends Cubit<PreviousGroceryDetailsState> {
     try {
       emit(PreviousGroceryDetailsLoading());
       final result = await Amplify.Storage.getUrl(
-        path: StoragePath.fromString('$key.png'),
+        path: StoragePath.fromString('public/$key.png'),
         options: const StorageGetUrlOptions(
           pluginOptions: S3GetUrlPluginOptions(
             validateObjectExistence: true,

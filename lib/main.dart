@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_grocery_list/amplifyconfiguration.dart';
+import 'package:amplify_grocery_list/amplify_outputs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -34,7 +34,7 @@ Future<void> _configureAmplify() async {
     AmplifyStorageS3(),
   ]);
 
-  await Amplify.configure(amplifyconfig);
+  await Amplify.configure(amplifyConfig);
   safePrint('Successfully configured');
 }
 

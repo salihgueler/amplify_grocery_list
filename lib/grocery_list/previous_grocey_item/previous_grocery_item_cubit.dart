@@ -1,4 +1,5 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -13,9 +14,11 @@ class PreviousGroceryDetailsCubit extends Cubit<PreviousGroceryDetailsState> {
     try {
       emit(PreviousGroceryDetailsLoading());
       final result = await Amplify.Storage.getUrl(
-        key: key,
+        path: StoragePath.fromString('$key.png'),
         options: const StorageGetUrlOptions(
-          accessLevel: StorageAccessLevel.guest,
+          pluginOptions: S3GetUrlPluginOptions(
+            validateObjectExistence: true,
+          ),
         ),
       ).result;
       emit(PreviousGroceryDetailsSuccess(result.url.toString()));
